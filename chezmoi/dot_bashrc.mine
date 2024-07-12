@@ -1,0 +1,34 @@
+# -*- mode: shell-script; -*-
+
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+BASHRCD="${HOME}/.bashrc.d"
+
+require() {
+    PACKAGE="$1"
+    FILE="${BASHRCD}/${PACKAGE}.sh"
+    if [[ -e "${FILE}" ]]; then
+        source "${FILE}"
+    else
+        echo "Error: could not load file '${FILE}'"
+    fi
+}
+
+# Require all the packages
+require env # Environment variables
+require prompt
+require aliases
+require mw_aliases
+require fzf
+
+unset require BASHRCD
+
+export COLORTERM=truecolor 

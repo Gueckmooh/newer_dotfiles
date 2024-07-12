@@ -1,0 +1,99 @@
+#!/bin/bash
+#
+# Create tmux session.
+#
+# # Split Layout
+#
+# @todo documentation
+#
+# ╭──────────────────────────────────────────────────────────╮
+# │                                                          │
+# │                                                          │
+# │                      emacsclient                         │
+# │                                                          │
+# │                                                          │
+# ├──────────────────────────────────────────────────────────┤
+# │ ┌─[0]user@host:my-project                                │
+# │ └─[19:26]---$                                            │
+# │                                                          │
+# │                                                          │
+# │                                                          │
+# ╰──────────────────────────────────────────────────────────╯
+
+usage() {
+    cat <<EOF
+usage: tn [-c directory] [name]
+EOF
+}
+
+not_in_tmux() {
+    [ -z "$TMUX" ]
+}
+
+session_exists() {
+    tmux has-session -t "=$1"
+}
+
+DIR="${PWD}"
+
+while getopts ":c:h" opt
+do
+    case "${opt}"
+    in
+        c)
+            DIR="${OPTARG}"
+            ;;
+        h)
+            usage
+            exit 0
+            ;;
+        \?)
+            usage
+            exit 1
+            ;;
+    esac
+done
+shift "$((OPTIND-1))"
+
+if [ ! "$#" -eq 0 ]
+then
+    NAME="$1"
+else
+    NAME="$(basename "${DIR}" | tr . -)"
+fi
+
+if [ -z "${NAME}" ]
+then
+    echo "Cannot create session with no name"
+    exit 1
+fi
+
+if session_exists "${NAME}"
+then
+    echo "Session ${NAME} already exists"
+    exit 1
+fi
+
+create_detached_session() {
+    local DIR="$(realpath $1)"
+    local NAME="$2"
+    (
+        TMUX=''
+        tmux new-session -Ad -s "${NAME}" -c "${DIR}";
+        tmux split-window -vbl 75% -t "${NAME}" -c "${DIR}";
+        tmux send-keys -t "${NAME}" "macl" Enter;
+    )
+}
+
+switch_to_session() {
+    local NAME="$1"
+    if not_in_tmux
+    then
+        tmux attach -t "${NAME}"
+    else
+        tmux switch-client -t "${NAME}"
+    fi
+}
+
+create_detached_session "${DIR}" "${NAME}"
+switch_to_session "${NAME}"

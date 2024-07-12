@@ -1,0 +1,101 @@
+#!/bin/bash
+#
+# Kill tmux sessions
+# @todo documentation
+
+usage() {
+    cat <<EOF
+usage: tn [-a] [name]
+EOF
+}
+
+not_in_tmux() {
+    [ -z "$TMUX" ]
+}
+
+session_exists() {
+    tmux has-session -t "=$1"
+}
+
+query_yes_no() {
+    local NAME="$1"
+    if not_in_tmux; then local HEIGHT="--height=40%"; fi
+    echo -e "no\nyes" | fzf --reverse ${HEIGHT} --header="Delete session ${NAME} >"
+}
+
+kill_session() {
+    local NAME="$1"
+
+    local RES="$(query_yes_no "${NAME}")"
+
+    if [ "${RES}" = "yes" ]
+    then
+        emacsclient --socket="${NAME}" --eval "(kill-emacs)" 2>/dev/null
+        tmux kill-session -t "${NAME}"
+    fi
+}
+
+while getopts ":ah" opt
+do
+    case "${opt}"
+    in
+        a)
+            NAME="all"
+            ;;
+        h)
+            usage
+            exit 0
+            ;;
+        \?)
+            usage
+            exit 1
+            ;;
+    esac
+done
+shift "$((OPTIND-1))"
+
+if [ -z "${NAME}" ]
+then
+    if [ ! "$#" -eq 0 ]
+    then
+        NAME="$1"
+    elif ! not_in_tmux
+    then
+        NAME="$(tmux display-message -p "#S")"
+    fi
+fi
+
+if [ ! -z "${NAME}" ] && ! session_exists "${NAME}"
+then
+    echo "Session ${NAME} does not exist"
+    exit 1
+fi
+
+if [ ! -z "${NAME}" ]
+then
+    kill_session "${NAME}"
+    exit 0
+fi
+
+get_sessions() {
+    tmux ls 2>/dev/null | awk -F: '{print $1}'
+}
+
+select_session() {
+    TMUX_SESSIONS="$(get_sessions)"
+    if not_in_tmux; then local HEIGHT="--height=40%"; fi
+    echo -e "all\n${TMUX_SESSIONS}" | fzf --reverse "${HEIGHT}" --header="Select session/project >"
+}
+
+NAME="$(select_session)"
+if [ -z "${NAME}" ]; then exit 0; fi
+
+if [ "${NAME}" = "all" ]
+then
+    for s in $(get_sessions)
+    do
+        kill_session "${s}"
+    done
+else
+    kill_session "${NAME}"
+fi
