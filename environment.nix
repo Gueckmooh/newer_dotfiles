@@ -30,6 +30,9 @@ baseEnv = pkgs.buildEnv {
     pkgs.bat
     pkgs.ripgrep
     pkgs.fd
+
+    # Encryption
+    pkgs.age
   ];
 };
 
