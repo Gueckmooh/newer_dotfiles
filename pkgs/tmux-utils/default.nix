@@ -5,4 +5,4 @@ let
   pkgs = (import ../../nixpkgs.nix) { config = {}; overlays = []; inherit system; };
 in
 
-pkgs.callPackage ./build.nix { pkgs = pkgs; }
+pkgs.callPackage ./package.nix { pkgs = pkgs; }
