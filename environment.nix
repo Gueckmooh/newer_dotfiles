@@ -57,7 +57,7 @@ userEnv = pkgs.buildEnv {
   paths = [
     my-pkgs.tmux-utils
     my-pkgs.emacs-utils
-    # my-pkgs.udb
+    my-pkgs.udb
     my-pkgs.psreplay
   ];
 };
