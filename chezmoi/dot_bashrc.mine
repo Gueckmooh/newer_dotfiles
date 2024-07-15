@@ -26,6 +26,7 @@ require() {
 require env # Environment variables
 require prompt
 require aliases
+require completions
 require mw_aliases
 require fzf
 
