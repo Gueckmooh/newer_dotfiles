@@ -29,6 +29,7 @@ require aliases
 require completions
 require mw_aliases
 require fzf
+require mw
 
 unset require BASHRCD
 

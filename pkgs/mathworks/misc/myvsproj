@@ -1,0 +1,66 @@
+#!/bin/bash
+
+COMPONENTS=(
+	polyspace/classification
+	polyspace/cxx_front_end_kernel
+	polyspace/pql
+	polyspace/results_api_cxx
+	polyspace/results_db
+	polyspace/shared_vvir
+	polyspace/shared/results_builder
+	polyspace/vvir_vs_souffle
+	polyspace/vvir_stubs
+	polyspace/vvir_linker
+	polyspace/configure
+	polyspace/databases_merger
+	polyspace/middle_end
+	polyspace/middle_end_driver
+	polyspace/packaging
+	polyspace/vvir_checkers
+	polyspace/checkers_catalog
+	polyspace/sim_backend
+	polyspace/miscutils
+	polyspace/rust_vs_vvir
+	polyspace/shared/sml_ffi
+	polyspace/c_front_end
+	polyspace/results_api
+	polyspace/c_middle_end
+	polyspace/gen_gui_files
+	polyspace/pscenter_cmd
+	polyspace/shared/persistence
+	polyspace/annotations
+	polyspace/fast_parser
+	# polyspace/packaging_cxx
+	# Go modules
+	polyspace/shared/model_definitions
+	polyspace/shared/model_definitions_tests
+	polyspace/catalog_bundler
+	# Misc
+	polyspace/shared_definitions
+)
+
+for COMP in ${COMPONENTS[@]}; do
+	COMPONENTS_OPTION="$COMPONENTS_OPTION -component $COMP"
+done
+
+WORKSPACE_NAME=$(sbroot | awk -vFS=. '{print $NF}')
+
+echo "Changing directory to $(sbroot)"
+pushd $(sbroot) >/dev/null
+
+echo "Running vsproj.py"
+# vsproj.py --polyspace --projectile -component ${COMPONENTS_OPTION} -ccls -ccls-path $(which ccls)
+sbvscode -gen -polyspace ${COMPONENTS_OPTION} -ccls -ccls-path $(which ccls) -no-check-ctb -j12
+
+WORKSPACE_FILE=$(sbroot | awk -v FS="$USER." '{print $2}').code-workspace
+
+for folder in $(jq .folders[].path "$WORKSPACE_FILE"); do
+	echo "+$folder" | sed 's/"//g' >>.projectile
+done
+
+echo "Adding test directory to .projectile file"
+echo "+matlab/test/polyspace/kernel_c_cxx/pql" >>.projectile
+echo "+matlab/test/polyspace/kernel_c_cxx/checkers" >>.projectile
+echo "+matlab/test/polyspace/kernel_c_cxx/userdef_catalogs" >>.projectile
+
+popd

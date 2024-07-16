@@ -1,6 +1,6 @@
 {
   stdenv,
-  pkgs,
+  ncurses,
 }:
 
 stdenv.mkDerivation {
@@ -11,6 +11,8 @@ stdenv.mkDerivation {
     url = https://download.undo.io/download/v1/e62d4912e0c4b4523794e968dfa59faf39f983ef32e4109f0e95d7c5/package/UDB-Corporate-x86;
     sha256 = "0hwim5mfpbhfwr2p338liz8p13rmlpzhlczza91l530xj2w4fr2x";
   };
+
+  buildInputs = [ ncurses ];
 
   installPhase = ''
     mkdir -p $out/lib

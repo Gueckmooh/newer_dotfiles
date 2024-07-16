@@ -1,0 +1,64 @@
+# -*-shell-script-*-
+
+COMPONENTSL=("polyspace/middle_end"
+            "polyspace/middle_end_driver"
+            "polyspace/vvir_checkers"
+            "polyspace/shared_vvir"
+            "polyspace/polyspace_resources"
+            "polyspace/classification")
+
+COMPONENTS="${COMPONENTSL[@]}"
+
+_sbmake_completions()
+{
+    local cur prev
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    pprev="${COMP_WORDS[COMP_CWORD-2]}"
+    optsl=("DEBUG=1"
+           "NOBUILDTESTS=1"
+           "FORCE_BII_REBUILD=1"
+           "PRESERVE_BII_BUILD_AREA=1"
+           "BH_ALLOW_ISOLATED_BUILDS="
+           "MW_ENABLE_CODE_SIGNING="
+           "BUILD_UPSTREAM_COMPONENTS=1"
+           "BUILD_DOWNSTREAM_COMPONENTS=1"
+           "BUILD_DIRECT_UPSTREAM_COMPONENTS=1"
+           "BUILD_DIRECT_DOWNSTREAM_COMPONENTS=1"
+           "MWDEBUG_SHOW_UNIT_TEST_OUTPUT=1"
+           "TEST_DEBUG_PROG=sbgdb"
+           "bii"
+           "build"
+           "prebuild"
+           "nj"
+           "-C"
+           "-distcc-pump"
+           "-override-sandbox-requirements")
+    opts="${optsl[@]}"
+    componentsl=()
+    for component in ${COMPONENTSL[@]}
+    do
+        componentsl+=("CTB=$component")
+    done
+    components="${componentsl[@]}"
+    targetsl=()
+    for c in $(grep -E '^[^ ]*:' Makefile 2>/dev/null | grep -v -e '/' -e '\.' -e '^\$' | awk -v FS=: '{print $1}')
+    do
+        targetsl+=("$c")
+    done
+    targets="${targetsl[@]}"
+
+
+    if [[ ${prev} == "=" ]] && [[ ${pprev} == "CTB" ]]; then
+        COMPREPLY=( $(compgen -W "${COMPONENTS}" -- ${cur}) )
+        return 0
+    fi
+    if [[ ${prev} == "-C" ]]; then
+        COMPREPLY=( $(compgen -f -- ${cur}) )
+        return 0
+    fi
+    # echo "->[${COMP_CWORD}]\"$cur\", prev=${prev}"
+
+    COMPREPLY=( $(compgen -W "${opts} ${components} ${targets}" -- ${cur}) )
+}
+complete -F _sbmake_completions sbmake

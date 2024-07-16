@@ -6,10 +6,6 @@ let
     withNativeCompilation = true;
     withGTK3 = true;
   };
-
-  # tmux-utils = pkgs.callPackage ./scripts/tmux-utils {};
-  # emacs-utils = pkgs.callPackage ./scripts/emacs-utils {};
-
 in
 let
 baseEnv = pkgs.buildEnv {
@@ -49,6 +45,7 @@ devEnv = pkgs.buildEnv {
 
     # Python
     pkgs.python3
+    pkgs.pipenv
 
     # Go
     pkgs.go
@@ -62,6 +59,9 @@ userEnv = pkgs.buildEnv {
     my-pkgs.emacs-utils
     my-pkgs.udb
     my-pkgs.psreplay
+    my-pkgs.ebsb
+    pkgs.python3Packages.colorama
+    my-pkgs.mw-misc
   ];
 };
 in
