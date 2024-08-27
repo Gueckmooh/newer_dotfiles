@@ -1,9 +1,7 @@
 # -*- shell-script -*-
 
-alias lss='mw -using Bpolyspace_core sbs list'
-alias ccore='mw -using Bpolyspace_core sbs -c Bpolyspace_core -alias'
-alias cmbd='mw -using Bpolyspace_mbd sbs -c Bpolyspace_mbd -alias'
-alias cclang='mw -using Bpolyspace_lang sbs -c Bpolyspace_lang -alias'
+alias lss='mw -using Bpolyspace_mbd sbs list -O alias'
+alias cmbd='mw -using Bpolyspace_mbd sbs create -c Bpolyspace_mbd -alias'
 alias lk='echo -n "http://$(hostname).dhcp.mathworks.com" && realpath $1'
 alias make-clang-format='eval "$(sbindent -disp-clang-format-cmd) --dump-config" > .clang-format'
 # alias setsuiftime="PST_VAR_NO_STUBS=\`/home/tbidault/bin/gettime_s.sh\`; export PST_VAR_NO_STUBS"

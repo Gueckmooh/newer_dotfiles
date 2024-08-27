@@ -23,6 +23,7 @@ require() {
 }
 
 # Require all the packages
+require nix
 require env # Environment variables
 require prompt
 require aliases

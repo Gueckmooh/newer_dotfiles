@@ -7,4 +7,5 @@
   psreplay = pkgs.callPackage ./mathworks/psreplay {  };
   ebsb = pkgs.callPackage ./mathworks/ebsb {  };
   mw-misc = pkgs.callPackage ./mathworks/misc {  };
+  find-internal-checkers = pkgs.callPackage ./mathworks/find-internal-checkers {  };
 }

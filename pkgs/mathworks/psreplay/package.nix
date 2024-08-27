@@ -17,9 +17,12 @@ buildGoModule {
   installPhase = ''
     mkdir -p $out/bin
     mkdir -p $out/share/psreplay
+    mkdir -p $out/share/emacs/psreplay
 
     dir="$GOPATH/bin"
     [ -e "$dir" ] && cp "$dir/psreplay" "$out/bin/."
     [ -e "$dir" ] && "$dir/tools" > "$out/share/psreplay/completion.bash"
+
+    cp $src/lisp/psreplay.el $out/share/emacs/psreplay/.
   '';
 }

@@ -14,5 +14,6 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     cp macl $out/bin
+    cp me $out/bin
   '';
 }

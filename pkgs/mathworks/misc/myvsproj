@@ -37,6 +37,8 @@ COMPONENTS=(
 	polyspace/catalog_bundler
 	# Misc
 	polyspace/shared_definitions
+
+	polyspace/code_assumptions/translators
 )
 
 for COMP in ${COMPONENTS[@]}; do

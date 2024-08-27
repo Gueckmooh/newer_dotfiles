@@ -10,7 +10,7 @@ else
 fi
 if [[ $(ps aux | grep "emacs $DAEMONIZE" | wc -l) == 1 ]]
 then
-    emacs -init-directory "$XDG_CONFIG_HOME/emacs" "$DAEMONIZE"
+    emacs -init-directory "$XDG_CONFIG_HOME/emacs" -u "" "$DAEMONIZE"
 fi
 if jobs | grep "emacsclient" >/dev/null 2>&1
 then

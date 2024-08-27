@@ -26,6 +26,7 @@ baseEnv = pkgs.buildEnv {
     pkgs.bat
     pkgs.ripgrep
     pkgs.fd
+    pkgs.bear
 
     # Encryption
     pkgs.age
@@ -37,11 +38,14 @@ devEnv = pkgs.buildEnv {
   paths = [
     pkgs.git
     pkgs.cmake
+    pkgs.libtool
 
     # C/C++
     (pkgs.lib.hiPrio pkgs.gcc)
     pkgs.clang
+    pkgs.clang-tools
     pkgs.ccls
+    pkgs.nodejs_22
 
     # Python
     pkgs.python3
@@ -49,6 +53,8 @@ devEnv = pkgs.buildEnv {
 
     # Go
     pkgs.go
+    pkgs.gopls
+    pkgs.goimports-reviser
   ];
 };
 
@@ -62,9 +68,17 @@ userEnv = pkgs.buildEnv {
     my-pkgs.ebsb
     pkgs.python3Packages.colorama
     my-pkgs.mw-misc
+    my-pkgs.find-internal-checkers
+  ];
+};
+
+graphicEnv = pkgs.buildEnv {
+  name = "graphic-environment";
+  paths = with pkgs; [
+    kitty
   ];
 };
 in
 {
-inherit baseEnv devEnv userEnv;
+inherit baseEnv devEnv userEnv graphicEnv;
 }
