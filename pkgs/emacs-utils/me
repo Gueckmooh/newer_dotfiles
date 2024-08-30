@@ -1,0 +1,14 @@
+#!/bin/bash
+
+TMUX_S=$(tmux display-message -p "#S")
+if test "$TMUX_S" != "0"; then
+    DAEMONIZE="--daemon=$TMUX_S";
+    SOCKET="--socket=$TMUX_S";
+else
+    DAEMONIZE="--daemon";
+fi;
+# if [[ $(ps aux | grep "emacs $DAEMONIZE" | wc -l) == 1 ]]; then
+if ! pgrep -f "emacs $DAEMONIZE" > /dev/null; then
+    exit;
+fi;
+emacsclient "$SOCKET" -n "$@"
