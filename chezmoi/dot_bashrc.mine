@@ -35,3 +35,8 @@ require mw
 unset require BASHRCD
 
 export COLORTERM=truecolor 
+
+if which fish > /dev/null
+then
+    exec fish
+fi

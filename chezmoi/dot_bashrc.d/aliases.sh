@@ -1,8 +1,11 @@
 # -*-shell-script-*-
 
-alias l='ls -CF'
-alias ll='ls -CFlh'
-alias la='ls -ACF'
+# alias l='ls -CF'
+# alias ll='ls -CFlh'
+# alias la='ls -ACF'
+alias ls='eza --git --color=auto -F'
+alias ll='eza --git --color=auto -F -l'
+alias la='eza --git --color=auto -F -a'
 alias pg='ps -e | grep $1'
 alias emacs='emacs -init-directory "$XDG_CONFIG_HOME/emacs" -u ""'
 alias ma='emacs -nw'

@@ -2,6 +2,7 @@
 export PATH=/mathworks/hub/share/apps/BuildTools/Linux/glibc-2.13/x86_64/perl/perl-5.34.1-mw-002/bin:$PATH
 
 export PATH="$PATH:$HOME/.local/pst/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 # Set NORMAL_PATH for the following trap
 export NORMAL_PATH=$PATH
