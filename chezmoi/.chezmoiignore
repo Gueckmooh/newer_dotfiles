@@ -5,4 +5,5 @@ key.txt.age
 {{ else }}
 .bashrc.mine
 .bashrc.d/mw*
+.config/fish/conf.d/mathworks.fish
 {{ end }}
