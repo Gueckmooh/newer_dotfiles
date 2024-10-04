@@ -7,8 +7,9 @@ if test "$TMUX_S" != "0"; then
 else
     DAEMONIZE="--daemon";
 fi;
-# if [[ $(ps aux | grep "emacs $DAEMONIZE" | wc -l) == 1 ]]; then
-if ! pgrep -f "emacs $DAEMONIZE" > /dev/null; then
-    exit;
+if [[ $(ps aux | grep "emacs.*$DAEMONIZE" | wc -l) == 1 ]]; then
+# if ! pgrep "emacs $DAEMONIZE" > /dev/null; then
+    echo "No emacs daemon running ($TMUX_S)"
+    exit 1;
 fi;
 emacsclient "$SOCKET" -n "$@"

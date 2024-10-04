@@ -1,11 +1,11 @@
-{ stdenv, lib, pkgs }:
+{ stdenv, lib }:
 let
   fs = lib.fileset;
   sourceFiles = fs.difference ./. (fs.maybeMissing ./result);
 in
 
 stdenv.mkDerivation {
-  name = "tmux-utils";
+  name = "scripts";
   src = fs.toSource {
     root = ./.;
     fileset = sourceFiles;
@@ -13,8 +13,7 @@ stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp tn $out/bin
-    cp ta $out/bin
-    cp tk $out/bin
+    cp macl $out/bin
+    cp me $out/bin
   '';
 }

@@ -30,14 +30,16 @@ COMPONENTS=(
 	polyspace/shared/persistence
 	polyspace/annotations
 	polyspace/fast_parser
-	# polyspace/packaging_cxx
+	polyspace/packaging_cxx
 	# Go modules
 	polyspace/shared/model_definitions
+	polyspace/shared/model_binders
 	polyspace/shared/model_definitions_tests
 	polyspace/catalog_bundler
 	# Misc
 	polyspace/shared_definitions
 
+	polyspace/code_assumptions/model
 	polyspace/code_assumptions/translators
 )
 

@@ -1,0 +1,55 @@
+#!/bin/bash
+
+function help {
+    echo "Usage:"
+    echo "    Prints the changelist that last changed the specified line of the specified file,"
+    echo "    resolving p4 integrations."
+    echo "    $PROGRAM [OPTIONS] <FILE> <LINE>"
+    echo ""
+    echo "Options:"
+    echo "    -d Show change's description"
+    echo "    -j Show change's fixed jobs (implies -d)"
+}
+
+SHOW_DESCRIPTION=0
+SHOW_JOBS=0
+
+while getopts "djh" opt
+do
+    case "$opt" in
+        j)
+            SHOW_JOBS=1
+            SHOW_DESCRIPTION=1
+            ;;
+        d)
+            SHOW_DESCRIPTION=1
+            ;;
+        h)
+            usage 0
+            ;;
+        *)
+            usage 1
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+FILE="$1"
+LINE="$2"
+
+CHANGE=$(p4 annotate -qI "$FILE" | sed "${LINE}q;d" | cut -f1 -d:)
+DESCRIPTION=$(p4 describe -s $CHANGE | sed -e '/Affected files/,$d')
+
+DESCRIPTION_HEADER=$(echo "$DESCRIPTION" | head -n 1)
+DESCRIPTION_CONTENT=$(echo "$DESCRIPTION" | tail -n +2)
+
+echo -e "\e[1m$DESCRIPTION_HEADER\e[0m"
+echo -e "\e[4mhttp://p4dbmaster.mathworks.com/cgi-bin/changeView.cgi?CH=c$CHANGE\e[0m"
+
+if [ "$SHOW_DESCRIPTION" = "1" ]; then
+    if [ "$SHOW_JOBS" = "1" ]; then
+        echo "$DESCRIPTION_CONTENT"
+    else
+        echo "$DESCRIPTION_CONTENT" | sed -e '/Jobs fixed/,$d'
+    fi
+fi

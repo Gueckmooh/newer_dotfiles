@@ -5,7 +5,7 @@ let
 in
 
 stdenv.mkDerivation {
-  name = "misc";
+  name = "scripts";
   src = fs.toSource {
     root = ./.;
     fileset = sourceFiles;
@@ -13,6 +13,10 @@ stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp myvsproj $out/bin/.
+    cp macl $out/bin
+    cp me $out/bin
+    cp tn $out/bin
+    cp ta $out/bin
+    cp tk $out/bin
   '';
 }

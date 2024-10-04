@@ -5,7 +5,7 @@ let
 in
 
 stdenv.mkDerivation {
-  name = "emacs-utils";
+  name = "misc";
   src = fs.toSource {
     root = ./.;
     fileset = sourceFiles;
@@ -13,7 +13,8 @@ stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp macl $out/bin
-    cp me $out/bin
+    cp myvsproj $out/bin/.
+    cp run-single-kit-file.sh $out/bin/run-single-kit-file
+    cp who-did-this $out/bin/.
   '';
 }
