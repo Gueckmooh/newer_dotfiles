@@ -1,1 +1,8 @@
 key.txt.age
+
+{{ if .at_work }}
+.bashrc
+{{ else }}
+.bashrc.mine
+.bashrc.d/mw*
+{{ end }}
