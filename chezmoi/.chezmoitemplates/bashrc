@@ -10,6 +10,11 @@ case $- in
       *) return;;
 esac
 
+if which fish > /dev/null
+then
+    exec fish
+fi
+
 BASHRCD="${HOME}/.bashrc.d"
 
 if test -d "$BASHRCD"; then
@@ -22,7 +27,3 @@ unset BASHRCD
 
 export COLORTERM=truecolor
 
-if which fish > /dev/null
-then
-    exec fish
-fi
