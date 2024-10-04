@@ -16,5 +16,6 @@ stdenv.mkDerivation {
     cp myvsproj $out/bin/.
     cp run-single-kit-file.sh $out/bin/run-single-kit-file
     cp who-did-this $out/bin/.
+    cp gdb-wrapper $out/bin/.
   '';
 }

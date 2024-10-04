@@ -62,9 +62,7 @@ let
     # My scripts
     my-pkgs.scripts
     ] ++ (if install_work_packages
-          then [
-            my-pkgs.work_scripts
-          ]
+          then builtins.attrValues my-pkgs.work_scripts
           else []);
   };
 in
