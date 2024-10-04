@@ -1,5 +1,9 @@
 #!/bin/bash
 
+{{ if not .at_work }}
+exit
+{{ end }}
+
 readonly yellow='\e[0;33m'
 readonly green='\e[0;32m'
 readonly red='\e[0;31m'
