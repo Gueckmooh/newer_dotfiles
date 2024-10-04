@@ -2,8 +2,10 @@ key.txt.age
 
 {{ if .at_work }}
 .bashrc
+.config/fish/conf.d/hydro.fish
 {{ else }}
 .bashrc.mine
 .bashrc.d/mw*
 .config/fish/conf.d/mathworks.fish
+.config/fish/conf.d/hydro_mathworks.fish
 {{ end }}
