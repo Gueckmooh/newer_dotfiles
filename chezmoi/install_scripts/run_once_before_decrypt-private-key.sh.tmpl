@@ -1,7 +1,8 @@
 #!/bin/sh
 
-if [ ! -f "/home/ebrignon/.config/chezmoi/key.txt" ]; then
-    mkdir -p "/home/ebrignon/.config/chezmoi"
-    chezmoi age decrypt --output "/home/ebrignon/.config/chezmoi/key.txt" --passphrase "{{ .chezmoi.sourceDir }}/key.txt.age"
-    chmod 600 "/home/ebrignon/.config/chezmoi/key.txt"
+CHEZMOI_CONFIG="$HOME/.config/chezmoi"
+if [ ! -f "$CHEZMOI_CONFIG/key.txt" ]; then
+    mkdir -p "$CHEZMOI_CONFIG"
+    chezmoi age decrypt --output "$CHEZMOI_CONFIG/key.txt" --passphrase "{{ .chezmoi.sourceDir }}/key.txt.age"
+    chmod 600 "$CHEZMOI_CONFIG/key.txt"
 fi
