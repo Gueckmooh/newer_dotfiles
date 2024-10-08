@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 # -*-shell-script-*-
 
-install_packages_script="$HOME/.local/share/chezmoi/nix/install_packages.sh"
+install_script="$HOME/.local/share/chezmoi/nix/install_nix.sh"
 
-sh <(curl -L https://nixos.org/nix/install) --no-daemon --no-modify-profile
-
-{{ if .at_work -}}
-bash "$install_packages_script" --work
-{{ else -}}
-bash "$install_packages_script"
-{{ end -}}
+env PATH=$HOME/.nix-profile/bin:$PATH bash "$install_script"
