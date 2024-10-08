@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+
+{{- if eq .shell "fish" }}
+sudo apt-get update
+sudo apt-get install fish -y
+chsh -s /usr/bin/fish
+{{- end }}
