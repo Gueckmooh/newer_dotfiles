@@ -10,5 +10,7 @@ for bin in $NEEDED_BINARIES; do
     fi
 done
 
+mkdir -p "$HOME/.local/share"
+git clone https://github.com/gueckmooh/newer_dotfiles "$HOME/.local/share/chezmoi"
 mkdir -p /tmp/bin
 env PATH=/tmp/bin:$PATH sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /tmp/bin init --apply
