@@ -2,7 +2,7 @@
 
 set -e
 
-DOTFILES_REPOSITORY="https://github.com/gueckmooh/newer_dotiles"
+DOTFILES_REPOSITORY="https://github.com/gueckmooh/newer_dotfiles"
 
 
 
