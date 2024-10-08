@@ -12,6 +12,8 @@ adduser foo
 mkdir -p /home/foo
 chown foo /home/foo
 usermod -aG sudo foo
+passwd foo
+# Give it a password
 su foo
 ```
 
