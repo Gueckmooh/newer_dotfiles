@@ -7,6 +7,7 @@ You can debug the bootstrap script by running it from a docker container.
 Then, in the docker you can do:
 
 ``` sh
+apt update
 apt install git curl sudo xz-utils
 adduser foo
 mkdir -p /home/foo
