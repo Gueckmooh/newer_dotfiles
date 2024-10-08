@@ -54,6 +54,7 @@ let
     # Python
     pkgs.python3
     pkgs.pipenv
+    pkgs.python311Packages.colorama
 
     # Go
     pkgs.go

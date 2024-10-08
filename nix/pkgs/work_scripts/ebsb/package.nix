@@ -9,7 +9,7 @@ pkgs.python3Packages.buildPythonPackage {
   name = "ebsb";
   src = fetchGit {
     url = "ssh://git@insidelabs-git.mathworks.com/ebrignon/ebsb.git";
-    rev = "90152037a0e46bf965b49f072dbf62f0148b1ecc";
+    rev = "cdf0808047ee19d90d4aef4a04473e37f1a89aa1";
   };
 
   propagatedBuildInputs = [

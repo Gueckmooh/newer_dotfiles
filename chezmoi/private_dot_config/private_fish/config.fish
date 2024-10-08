@@ -15,6 +15,8 @@ if test -e "$HOME/.nix-profile/etc/profile.d/nix.fish"
     source "$HOME/.nix-profile/etc/profile.d/nix.fish"
     set NIX_LINK $HOME/.nix-profile
     fish_add_path $NIX_LINK/bin
+
+    set --global --export PYTHONPATH $NIX_LINK/lib/python3.11/site-packages
 end
 
 # FZF
