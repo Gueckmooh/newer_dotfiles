@@ -5,6 +5,8 @@ readonly green='\e[0;32m'
 readonly red='\e[0;31m'
 readonly reset='\e[0m'
 
+export PATH=$HOME/.nix-profile/bin:$PATH
+
 # Usage: log [ARG]...
 #
 # Prints all arguments on the standard output stream
