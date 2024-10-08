@@ -33,6 +33,7 @@ let
     # Utilities
     pkgs.bear
     pkgs.cloc
+    pkgs.yt-dlp
 
     # Encryption
     pkgs.age
