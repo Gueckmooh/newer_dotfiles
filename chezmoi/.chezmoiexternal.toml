@@ -1,9 +1,5 @@
 # -*- mode: conf-toml; -*-
 
-[".config/doom"]
-    type = "git-repo"
-    url = "git@github.com:Gueckmooh/doom-config"
-
 [".config/emacs"]
     type = "git-repo"
     url = "https://github.com/doomemacs/doomemacs"
