@@ -1,4 +1,22 @@
+# -*- mode: conf-toml; -*-
+
+[".config/doom"]
+    type = "git-repo"
+    url = "git@github.com:Gueckmooh/doom-config"
+
+[".config/emacs"]
+    type = "git-repo"
+    url = "https://github.com/doomemacs/doomemacs"
+    clone.args = "--depth 1"
+
 [".config/tmux/plugins/tpm"]
     type = "git-repo"
     url = "https://github.com/tmux-plugins/tpm.git"
     refreshPeriod = "168h"
+
+{{ if .at_work }}
+[".config/pouet_test"]
+    type = "git-repo"
+    url = "git@insidelabs-git.mathworks.com:ebrignon/mwconfig.git"
+{{ end }}
+

@@ -3,4 +3,6 @@
 
 install_script="$HOME/.local/share/chezmoi/nix/install_nix.sh"
 
-env PATH=$HOME/.nix-profile/bin:$PATH bash "$install_script"
+export PATH=$HOME/.nix-profile/bin:$PATH
+
+bash "$install_script"

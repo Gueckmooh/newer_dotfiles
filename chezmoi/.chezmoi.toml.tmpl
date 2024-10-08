@@ -9,3 +9,6 @@ encryption = "age"
 
 [data]
     at_work = {{ lower .chezmoi.hostname | hasPrefix "vdi-" }}
+{{- $possible_shells := list "fish" "bash" }}
+{{- $shell := promptChoice "What shell to use" $possible_shells }}
+    shell = {{ $shell | quote }}
