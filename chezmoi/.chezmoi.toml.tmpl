@@ -3,5 +3,9 @@ encryption = "age"
     identity = "~/.config/chezmoi/key.txt"
     recipient = "age1c5clhzgaeshgetv26jvsxk3vnr9kasgqrvx4yuaveepfzevllplqam7axy"
 
+[merge]
+    command = "nvim"
+    args = ["-d", "{{ "{{" }} .Destination {{ "}}" }}", "{{ "{{" }} .Source {{ "}}" }}", "{{ "{{" }} .Target {{ "}}" }}"]
+
 [data]
     at_work = {{ lower .chezmoi.hostname | hasPrefix "vdi-" }}

@@ -8,7 +8,15 @@ end
 
 function _hydro_pwd --on-variable PWD --on-variable hydro_ignored_git_paths --on-variable fish_prompt_pwd_dir_length
     set --local git_root (command git --no-optional-locks rev-parse --show-toplevel 2>/dev/null)
-    set --local git_base (string replace --all --regex -- "^.*/" "" "$git_root")
+    set --local sbroot (command sbroot 2>/dev/null)
+
+    set --local git_base
+    if set --query sbroot[1]
+        set git_base (string replace --all --regex -- "^.*/" "" "$sbroot")
+    else
+        set git_base (string replace --all --regex -- "^.*/" "" "$git_root")
+    end
+
     set --local path_sep /
 
     test "$fish_prompt_pwd_dir_length" = 0 && set path_sep

@@ -9,4 +9,5 @@ key.txt.age
 .config/fish/conf.d/mathworks.fish
 .config/fish/conf.d/hydro_mathworks.fish
 {{ end }}
+.config/fish/fish_variables
 .ssh/known_hosts
