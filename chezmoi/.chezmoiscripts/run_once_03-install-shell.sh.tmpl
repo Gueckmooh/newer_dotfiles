@@ -1,11 +1,54 @@
 #!/usr/bin/env bash
 
+set -e
 
-{{- if eq .shell "fish" }}
-sudo apt-get update
-sudo apt-get install fish -y
-{{- if .at_work }}
-exit # does not work on work computer
-{{- end }}
-chsh -s /usr/bin/fish
-{{- end }}
+readonly BLUE='\e[0;34m'
+readonly YELLOW='\e[0;33m'
+readonly GREEN='\e[0;32m'
+readonly RED='\e[0;31m'
+readonly RESET='\e[0m'
+
+# Usage: info [ARG]...
+#
+# Prints all arguments on the standard output stream
+info() {
+    printf "${BLUE}%s${RESET}\n" "${*}"
+}
+
+# Usage: log [ARG]...
+#
+# Prints all arguments on the standard output stream
+log() {
+    printf "${yellow}>> %s${reset}\n" "${*}"
+}
+
+# Usage: success [ARG]...
+#
+# Prints all arguments on the standard output stream
+success() {
+    printf "${green} %s${reset}\n" "${*}"
+}
+
+# Usage: error [ARG]...
+#
+# Prints all arguments on the standard error stream
+error() {
+    printf "${red}!!! %s${reset}\n" "${*}" 1>&2
+}
+
+main() {
+    info "********************************************************************"
+    info "*** Setup shell                                                  ***"
+    info "********************************************************************"
+
+    {{- if eq .shell "fish" }}
+    log "Installing fish shell"
+    sudo apt-get update
+    sudo apt-get install fish -y
+    {{- if .at_work }}
+    exit # does not work on work computer
+    {{- end }}
+    log "Running chsh"
+    chsh -s /usr/bin/fish
+    {{- end }}
+}

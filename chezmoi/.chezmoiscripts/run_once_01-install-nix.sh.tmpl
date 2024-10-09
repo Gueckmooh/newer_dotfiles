@@ -3,11 +3,15 @@
 
 set -e
 
+readonly BLUE='\e[0;34m'
 readonly YELLOW='\e[0;33m'
 readonly GREEN='\e[0;32m'
 readonly RED='\e[0;31m'
 readonly RESET='\e[0m'
 
+info() {
+    printf "${BLUE}%s${RESET}\n" "${*}"
+}
 log() {
     printf "${YELLOW}>> %s${RESET}\n" "${*}"
 }
@@ -19,9 +23,9 @@ error() {
 }
 
 main() {
-    echo "********************************************************************"
-    echo "*** Install nix                                                  ***"
-    echo "********************************************************************"
+    info "********************************************************************"
+    info "*** Install nix                                                  ***"
+    info "********************************************************************"
 
     install_script="$HOME/.local/share/chezmoi/nix/install_nix.sh"
 
