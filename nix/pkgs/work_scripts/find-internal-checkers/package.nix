@@ -1,9 +1,23 @@
-{ python3Packages }:
-with python3Packages;
+{
+  stdenv,
+  pkgs,
+  fetchgit,
+  fd,
+}:
 
-buildPythonPackage {
-  name = "find-internal-checkers";
-  src = ./.;
+pkgs.python3Packages.buildPythonPackage {
+  name = "ebsb";
+  src = fetchGit {
+    url = "ssh://git@insidelabs-git.mathworks.com/polyspace/tools/find_internal_checker.git";
+    rev = "400efd45e6fc560b44a4c02265ade639b62b6310";
+  };
+
+  propagatedBuildInputs = [
+    # ...
+    pkgs.python3Packages.setuptools
+  ];
+
+  buildInputs = [ fd ];
 
   postInstall = ''
     mkdir -p $out/bin
