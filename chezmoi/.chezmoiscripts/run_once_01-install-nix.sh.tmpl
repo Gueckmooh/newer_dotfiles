@@ -1,11 +1,36 @@
 #!/usr/bin/env bash
 # -*-shell-script-*-
 
-install_script="$HOME/.local/share/chezmoi/nix/install_nix.sh"
+set -e
 
-export PATH=$HOME/.nix-profile/bin:$PATH
+readonly YELLOW='\e[0;33m'
+readonly GREEN='\e[0;32m'
+readonly RED='\e[0;31m'
+readonly RESET='\e[0m'
 
-{{- if .at_work }}
-EXTRA_OPTIONS="-w"
-{{- end }}
-bash "$install_script" "$EXTRA_OPTIONS"
+log() {
+    printf "${YELLOW}>> %s${RESET}\n" "${*}"
+}
+success() {
+    printf "${GREEN}>> %s${RESET}\n" "${*}"
+}
+error() {
+    printf "${RED}>> %s${RESET}\n" "${*}" 1>&2
+}
+
+main() {
+    echo "********************************************************************"
+    echo "*** Install nix                                                  ***"
+    echo "********************************************************************"
+
+    install_script="$HOME/.local/share/chezmoi/nix/install_nix.sh"
+
+    export PATH=$HOME/.nix-profile/bin:$PATH
+
+    {{- if .at_work }}
+    EXTRA_OPTIONS="-w"
+    {{- end }}
+    bash "$install_script" "$EXTRA_OPTIONS"
+}
+
+main "${@}"
