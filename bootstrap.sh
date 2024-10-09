@@ -2,7 +2,6 @@
 
 set -e
 
-
 readonly YELLOW='\e[0;33m'
 readonly GREEN='\e[0;32m'
 readonly RED='\e[0;31m'
