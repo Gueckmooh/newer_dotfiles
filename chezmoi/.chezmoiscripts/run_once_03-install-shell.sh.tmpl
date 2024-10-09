@@ -4,5 +4,8 @@
 {{- if eq .shell "fish" }}
 sudo apt-get update
 sudo apt-get install fish -y
+{{- if .at_work }}
+exit # does not work on work computer
+{{- end }}
 chsh -s /usr/bin/fish
 {{- end }}
