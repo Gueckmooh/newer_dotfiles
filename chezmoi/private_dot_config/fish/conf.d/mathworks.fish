@@ -23,4 +23,9 @@ function __update_sandbox_path --on-variable PWD --on-event config_ready --descr
 
     set -g BACKUP_PATH $PATH
     set -a PATH $sbroot/matlab/polyspace/bin
+    set -a PATH $sbroot/matlab/bin/glnxa64
+end
+
+function lk --description "Prints the link to the file so that one can open it in browser"
+    printf "http://$(hostname).dhcp.mathworks.com%s\n" $(realpath $argv[1])
 end
