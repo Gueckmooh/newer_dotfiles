@@ -38,21 +38,6 @@ error() {
 
 export PATH=$HOME/.nix-profile/bin:$PATH
 
-clone_personnal_config() {
-    if [[ -d "$HOME/.config/doom" ]]; then
-        log "Skipping doom personnal config clone"
-    else
-        log "Cloning personnal doom emacs config..."
-        git clone git@github.com:Gueckmooh/doom-config $HOME/.config/doom
-        if [[ "$?" == 0 ]]; then
-            success "Clone successful"
-        else
-            error "Error occured while cloning personnal doom config"
-            exit 1
-        fi
-    fi
-}
-
 doom_install() {
     log "Running doom install..."
     $HOME/.config/emacs/bin/doom install --no-env
