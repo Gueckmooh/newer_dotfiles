@@ -5,10 +5,11 @@ end
 set --global XDG_CONFIG_HOME $HOME/.config
 set --global --export COLORTERM truecolor
 
-
 set --global hydro_color_pwd $fish_color_cwd
 set --global hydro_color_duration --dim $fish_color_command
 set --global hydro_color_git yellow
+
+set fish_greeting
 
 # NIX
 if test -e "$HOME/.nix-profile/etc/profile.d/nix.fish"
