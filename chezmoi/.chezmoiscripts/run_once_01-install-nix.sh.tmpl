@@ -31,7 +31,7 @@ main() {
 
     export PATH=$HOME/.nix-profile/bin:$PATH
 
-    {{- if .at_work }}
+    {{- if .work_profile }}
     EXTRA_OPTIONS="-w"
     {{- end }}
     bash "$install_script" "$EXTRA_OPTIONS"

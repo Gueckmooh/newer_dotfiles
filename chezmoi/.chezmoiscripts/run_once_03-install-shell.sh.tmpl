@@ -45,7 +45,7 @@ main() {
     log "Installing fish shell"
     sudo apt-get update
     sudo apt-get install fish -y
-    {{- if .at_work }}
+    {{- if .work_profile }}
     exit # does not work on work computer
     {{- end }}
     log "Running chsh"

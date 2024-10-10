@@ -16,7 +16,7 @@ Then, in the docker you can do:
 
 ``` sh
 apt update
-apt install git curl sudo xz-utils
+apt install git curl sudo xz-utils -y
 adduser foo
 mkdir -p /home/foo
 chown foo /home/foo

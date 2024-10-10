@@ -1,6 +1,6 @@
 key.txt.age
 
-{{ if .at_work }}
+{{ if .work_profile }}
 .bashrc
 .config/fish/conf.d/hydro.fish
 {{ else }}

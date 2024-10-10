@@ -8,7 +8,7 @@ encryption = "age"
     args = ["-d", "{{ "{{" }} .Destination {{ "}}" }}", "{{ "{{" }} .Source {{ "}}" }}", "{{ "{{" }} .Target {{ "}}" }}"]
 
 [data]
-    at_work = {{ lower .chezmoi.hostname | hasPrefix "vdi-" }}
+    work_profile = {{ lower .chezmoi.fqdnHostname | hasSuffix "mathworks.com" }}
 {{- $possible_shells := list "fish" "bash" }}
 {{- $shell := promptChoice "What shell to use" $possible_shells }}
     shell = {{ $shell | quote }}

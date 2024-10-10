@@ -10,7 +10,7 @@ case $- in
       *) return;;
 esac
 
-{{- if .at_work }}
+{{- if .work_profile }}
 # Dealing with the unability to run chsh
 if which fish > /dev/null
 then
