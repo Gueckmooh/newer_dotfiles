@@ -49,17 +49,21 @@ let
     pkgs.clang
     pkgs.clang-tools
     pkgs.ccls
-    pkgs.nodejs_22
 
     # Python
-    pkgs.python3
+    (pkgs.python3.withPackages(
+        ps: with ps; [
+            colorama
+        ]))
     pkgs.pipenv
-    pkgs.python311Packages.colorama
 
     # Go
     pkgs.go
     pkgs.gopls
     pkgs.goimports-reviser
+
+    # Javascript
+    pkgs.nodejs_22
 
     # My scripts
     my-pkgs.scripts
