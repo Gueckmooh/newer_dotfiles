@@ -11,14 +11,16 @@ case $- in
 esac
 
 {{- if .work_profile }}
+{{- if eq .shell "fish" }}
 # Dealing with the unability to run chsh
 if which fish > /dev/null
 then
     exec fish
 fi
 {{- end }}
+{{- end }}
 
-BASHRCD="${HOME}/.bashrc.d"
+BASHRCD="${HOME}/.config/bash"
 
 if test -d "$BASHRCD"; then
     for FILE in $BASHRCD/*.sh; do
