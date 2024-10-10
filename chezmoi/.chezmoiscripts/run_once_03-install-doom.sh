@@ -38,9 +38,11 @@ error() {
 
 export PATH=$HOME/.nix-profile/bin:$PATH
 
+already_installed=0
 clone_doom() {
     if [[ -d "$HOME/.config/emacs" ]]; then
         log "Skipping doom clone"
+        already_installed=1
     else
         log "Cloning doom emacs..."
         git clone https://github.com/doomemacs/doomemacs $HOME/.config/emacs --depth 1
@@ -79,6 +81,17 @@ doom_install() {
     fi
 }
 
+doom_upgrade() {
+    log "Running doom upgrade..."
+    $HOME/.config/emacs/bin/doom upgrade
+    if [[ "$?" == 0 ]]; then
+        success "Upgrade successful"
+    else
+        error "Error occured while installing doom"
+        exit 1
+    fi
+}
+
 doom_sync() {
     log "Running doom sync..."
     $HOME/.config/emacs/bin/doom sync
@@ -98,7 +111,11 @@ main() {
 
     clone_doom
     clone_config
-    doom_install
+    if test $already_installed -eq 0; then
+        doom_install
+    else
+        doom_upgrade
+    fi
     doom_sync
 }
 
