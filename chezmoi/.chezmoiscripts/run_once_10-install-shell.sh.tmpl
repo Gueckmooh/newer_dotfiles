@@ -21,7 +21,7 @@ main() {
     if test ! -x "$SELECTED_SHELL"; then
         log "Installing $SHELL_PACKAGE shell"
         sudo apt-get update
-        sudo apt-get install  -y
+        sudo apt-get install $SHELL_PACKAGE -y
     fi
     if grep "$USER" /etc/passwd >/dev/null; then
         log "Running chsh for $SELECTED_SHELL"
