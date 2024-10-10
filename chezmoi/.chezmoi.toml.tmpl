@@ -8,7 +8,13 @@ encryption = "age"
     args = ["-d", "{{ "{{" }} .Destination {{ "}}" }}", "{{ "{{" }} .Source {{ "}}" }}", "{{ "{{" }} .Target {{ "}}" }}"]
 
 [data]
-    work_profile = {{ lower .chezmoi.fqdnHostname | hasSuffix "mathworks.com" }}
+{{- $work_profile := false }}
+{{- $on_work_computer := lower .chezmoi.fqdnHostname | hasSuffix "mathworks.com" }}
+{{- if $on_work_computer }}
+{{- $yes_no := list "yes" "no" }}
+{{- $work_profile := promptChoice "Install work profile" $yes_no }}
+{{- end }}
+    work_profile = {{ $work_profile }}
 {{- $possible_shells := list "fish" "bash" }}
 {{- $shell := promptChoice "What shell to use" $possible_shells }}
     shell = {{ $shell | quote }}
