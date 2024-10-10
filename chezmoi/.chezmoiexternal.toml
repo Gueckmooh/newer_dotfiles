@@ -15,3 +15,8 @@
     type = "git-repo"
     url = "https://github.com/tmux-plugins/tpm.git"
     refreshPeriod = "168h"
+
+[".config/kitty/kitty-themes"]
+    type = "git-repo"
+    url = "https://github.com/dexpota/kitty-themes.git"
+    refreshPeriod = "168h"
