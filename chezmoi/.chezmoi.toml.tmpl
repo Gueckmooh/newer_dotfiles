@@ -12,7 +12,8 @@ encryption = "age"
 {{- $on_work_computer := lower .chezmoi.fqdnHostname | hasSuffix "mathworks.com" }}
 {{- if $on_work_computer }}
 {{- $yes_no := list "yes" "no" }}
-{{- $work_profile := promptChoice "Install work profile" $yes_no }}
+{{- $res := promptChoice "Install work profile" $yes_no }}
+{{- $work_profile = eq $res "yes" }}
 {{- end }}
     work_profile = {{ $work_profile }}
 {{- $possible_shells := list "fish" "bash" }}
