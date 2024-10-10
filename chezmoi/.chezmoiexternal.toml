@@ -1,5 +1,16 @@
 # -*- mode: conf-toml; -*-
 
+[".config/emacs"]
+    type = "git-repo"
+    url = "https://github.com/doomemacs/doomemacs.git"
+    refreshPeriod = "168h"
+    clone.args = [ "--depth",  "1" ]
+
+[".config/doom"]
+    type = "git-repo"
+    url = "https://github.com/gueckmooh/doom"
+    refreshPeriod = "168h"
+
 [".config/tmux/plugins/tpm"]
     type = "git-repo"
     url = "https://github.com/tmux-plugins/tpm.git"
