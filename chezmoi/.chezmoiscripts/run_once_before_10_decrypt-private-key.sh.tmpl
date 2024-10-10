@@ -9,12 +9,12 @@ main() {
 
     log "Decrypting private key.."
     mkdir -p "$CHEZMOI_CONFIG_PATH"
-    chezmoi age decrypt --output "$CHEZMOI_CONFIG/key.txt" --passphrase "{{ .chezmoi.sourceDir }}/key.txt.age"
+    chezmoi age decrypt --output "$CHEZMOI_CONFIG_PATH/key.txt" --passphrase "{{ .chezmoi.sourceDir }}/key.txt.age"
     if test $? -ne 0; then
         error "Failed to decrypt private key"
         exit 1
     fi
-    chmod 600 "$CHEZMOI_CONFIG/key.txt"
+    chmod 600 "$CHEZMOI_CONFIG_PATH/key.txt"
     success "Private key decrypted successfuly"
 }
 
