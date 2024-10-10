@@ -1,0 +1,20 @@
+#!/bin/bash
+
+{{ if not .work_profile }}
+exit
+{{ end }}
+
+. "$COMMON_SCRIPT_PATH"
+
+main() {
+    welcome "Work scripts configuration"
+
+    if [[ -d "$XDG_CONFIG_HOME/mathworks" ]]; then
+        log "Skipping clone of mw config"
+    else
+        log "Cloning mw config..."
+        git clone git@insidelabs-git.mathworks.com:ebrignon/mwconfig.git "$XDG_CONFIG_HOME/mathworks"
+    fi
+}
+
+main "${@}"
