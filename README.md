@@ -20,7 +20,7 @@ apt install git curl sudo xz-utils -y
 adduser foo
 mkdir -p /home/foo
 chown foo /home/foo
-usermod -aG sudo foo
+echo "foo ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers
 su foo
 ```
 
