@@ -1,3 +1,11 @@
+# ~/.*
+
+## Installation
+
+To install the config, you can use the bootstrap script:
+
+    sh -c "$(curl -fsLS https://raw.githubusercontent.com/Gueckmooh/newer_dotfiles/refs/heads/main/bootstrap.sh)"
+
 ## Debug bootstrap script
 
 You can debug the bootstrap script by running it from a docker container.
