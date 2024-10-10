@@ -1,3 +1,5 @@
+# -*- mode: conf-toml; -*-
+
 encryption = "age"
 [age]
     identity = "~/.config/chezmoi/key.txt"
@@ -11,11 +13,16 @@ encryption = "age"
 {{- $work_profile := false }}
 {{- $on_work_computer := lower .chezmoi.fqdnHostname | hasSuffix "mathworks.com" }}
 {{- if $on_work_computer }}
-{{- $yes_no := list "yes" "no" }}
-{{- $res := promptChoice "Install work profile" $yes_no }}
-{{- $work_profile = eq $res "yes" }}
+    {{- $yes_no := list "yes" "no" }}
+    {{- $res := promptChoice "Install work profile" $yes_no }}
+    {{- $work_profile = eq $res "yes" }}
 {{- end }}
     work_profile = {{ $work_profile }}
 {{- $possible_shells := list "fish" "bash" }}
 {{- $shell := promptChoice "What shell to use" $possible_shells }}
     shell = {{ $shell | quote }}
+
+[scriptEnv]
+    WORKING_TREE = {{ .chezmoi.workingTree | quote }}
+    COMMON_SCRIPT_PATH = {{ printf "%s/scripts/common.sh" .chezmoi.workingTree | quote }}
+    WORK_PROFILE = {{ $work_profile | quote }}

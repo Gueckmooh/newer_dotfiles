@@ -1,34 +1,21 @@
 #!/usr/bin/env bash
 #
 
-readonly YELLOW='\e[0;33m'
-readonly GREEN='\e[0;32m'
-readonly RED='\e[0;31m'
-readonly RESET='\e[0m'
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 
-log() {
-    printf "${YELLOW}>> %s${RESET}\n" "${*}"
-}
-success() {
-    printf "${GREEN}>> %s${RESET}\n" "${*}"
-}
-error() {
-    printf "${RED}>> %s${RESET}\n" "${*}" 1>&2
-}
+. "$SCRIPT_DIR/common.sh"
 
-# Get the directory of the script
-script_dir=$(dirname "$(readlink -f "$0")")
-environment_script="$script_dir/environment.nix"
+ENVIRONMENT_SCRIPT="$(dirname ${SCRIPT_DIR})/nix/environment.nix"
 
-work_flag=false
-help_flag=false
-debug_flag=false
+WORK_FLAG=false
+HELP_FLAG=false
+DEBUG_FLAG=false
 
 parse_args() {
     # Use getopt to parse options
     PARSED_OPTIONS=$(getopt -o wh --long work,help,debug -- "$@")
     if [ $? -ne 0 ]; then
-        echo "Failed to parse options." >&2
+        error "Failed to parse options."
         exit 1
     fi
 
@@ -39,15 +26,15 @@ parse_args() {
     while true; do
         case "$1" in
             -w|--work)
-                work_flag=true
+                WORK_FLAG=true
                 shift
                 ;;
             -h|--help)
-                help_flag=true
+                HELP_FLAG=true
                 shift
                 ;;
             --debug)
-                debug_flag=true
+                DEBUG_FLAG=true
                 shift
                 ;;
             --)
@@ -62,7 +49,7 @@ parse_args() {
     done
 
     # Handle help option
-    if [ "$help_flag" = true ]; then
+    if [ "$HELP_FLAG" = true ]; then
         usage
         exit 0
     fi
@@ -78,22 +65,22 @@ usage() {
 main() {
     parse_args "${@}"
 
-    if [ "$work_flag" = true ]; then
+    if [ "$WORK_FLAG" = true ]; then
         export INSTALL_WORK_PACKAGES=yes
     fi
 
     DEBUG_ARGS=
-    if [ "$debug_flag" = true ]; then
+    if [ "$DEBUG_FLAG" = true ]; then
         DEBUG_ARGS="--show-trace"
     fi
 
-    log "Installing packages using nix.."
-    nix-env -if "$environment_script" $DEBUG_ARGS
-    if [ $? -ne 0 ]; then
-        error "Error while installing packages"
+    log "Installing nix environment.."
+    nix-env -if "$ENVIRONMENT_SCRIPT" $DEBUG_ARGS
+    if test $? -ne 0; then
+        error "Failed to install nix environment"
         exit 1
     fi
-    success "Done installing packages"
+    success "Nix environment installation successful"
 }
 
 
