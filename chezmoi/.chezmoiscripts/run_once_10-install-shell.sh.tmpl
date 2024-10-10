@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+. "$COMMON_SCRIPT_PATH"
+
+main() {
+    welcome "Shell configuration"
+
+    {{- if eq .shell "fish" }}
+    if grep "$USER" /etc/passwd | grep /usr/bin/fish > /dev/null; then
+        success "Nothing to do"
+        exit
+    fi
+
+    if test ! -x /usr/bin/fish; then
+        log "Installing fish shell"
+        sudo apt-get update
+        sudo apt-get install fish -y
+    fi
+    if grep "$USER" /etc/passwd >/dev/null; then
+        log "Running chsh"
+        chsh -s /usr/bin/fish
+    else
+        log "Cannot run chsh, user not in /etc/passwd"
+    fi
+    {{- end }}
+}
+
+main "${@}"
