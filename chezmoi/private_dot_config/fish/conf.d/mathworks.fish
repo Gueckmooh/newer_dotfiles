@@ -18,8 +18,8 @@ function __update_sandbox_path --on-variable PWD --on-event config_ready --descr
     if set -qg sbroot
         return
     end
-    set -g sbroot $current_sbroot
-    set -g r $sbroot
+    set -gx sbroot $current_sbroot
+    set -gx r $sbroot
 
     set -g BACKUP_PATH $PATH
     set -a PATH $sbroot/matlab/polyspace/bin
@@ -29,3 +29,5 @@ end
 function lk --description "Prints the link to the file so that one can open it in browser"
     printf "http://$(hostname).dhcp.mathworks.com%s\n" $(realpath $argv[1])
 end
+
+set -gx P4MERGE "emacs -init-directory $HOME/.config/emacs -u '' -nw -p4merge"

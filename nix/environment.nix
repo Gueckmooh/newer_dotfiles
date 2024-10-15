@@ -34,6 +34,7 @@ let
     pkgs.bear
     pkgs.cloc
     pkgs.yt-dlp
+    pkgs.fpp
 
     # Encryption
     pkgs.age
