@@ -1,8 +1,17 @@
 #!/bin/bash
 #
 
-gdb \
-    -iex "dir $(sbroot)/matlab" \
-    -iex "set substitute-path /matlab $(sbroot)/matlab" \
-    -cd "$(pwd)" \
-    "$@"
+if which udb;
+then
+    exec udb \
+        -iex "dir $(sbroot)/matlab" \
+        -iex "set substitute-path /matlab $(sbroot)/matlab" \
+        -cd "$(pwd)" \
+        "$@"
+else
+    exec gdb \
+        -iex "dir $(sbroot)/matlab" \
+        -iex "set substitute-path /matlab $(sbroot)/matlab" \
+        -cd "$(pwd)" \
+        "$@"
+fi

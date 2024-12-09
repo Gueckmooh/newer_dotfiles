@@ -31,6 +31,8 @@ COMPONENTS=(
 	polyspace/annotations
 	polyspace/fast_parser
 	polyspace/packaging_cxx
+	polyspace/contract
+	polyspace/polyspace_autosar
 	# Go modules
 	polyspace/shared/model_definitions
 	polyspace/shared/model_binders
