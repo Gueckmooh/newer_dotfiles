@@ -26,6 +26,7 @@ let
     pkgs.ripgrep
     pkgs.fd
     pkgs.eza
+    pkgs.ninja
 
     # Config
     pkgs.chezmoi
@@ -34,7 +35,9 @@ let
     pkgs.bear
     pkgs.cloc
     pkgs.yt-dlp
-    pkgs.fpp
+
+    # Libraries
+    pkgs.sqlite
 
     # Encryption
     pkgs.age
@@ -42,7 +45,8 @@ let
     # Dev
     # ===
     pkgs.git
-    pkgs.cmake
+    (pkgs.lib.hiPrio pkgs.cmakeWithGui)
+    pkgs.cmakeCurses
     pkgs.libtool
 
     # C/C++
@@ -62,6 +66,8 @@ let
     pkgs.go
     pkgs.gopls
     pkgs.goimports-reviser
+
+    pkgs.asciiquarium
 
     # Javascript
     pkgs.nodejs_22
