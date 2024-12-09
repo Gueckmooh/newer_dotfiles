@@ -14,7 +14,7 @@ set fish_greeting
 # NIX
 if test -e "$HOME/.nix-profile/etc/profile.d/nix.fish"
     source "$HOME/.nix-profile/etc/profile.d/nix.fish"
-    set NIX_LINK $HOME/.nix-profile
+    set --global --export NIX_LINK $HOME/.nix-profile
     fish_add_path $NIX_LINK/bin
 
     set --global --export PYTHONPATH $NIX_LINK/lib/python3.11/site-packages
@@ -25,5 +25,8 @@ if set -q NIX_LINK
     source "$NIX_LINK/share/fzf/key-bindings.fish"
     fzf_key_bindings
 end
+
+# In the case some executable could not be installed using nix:
+fish_add_path $HOME/.local/share/install/bin
 
 emit config_ready
