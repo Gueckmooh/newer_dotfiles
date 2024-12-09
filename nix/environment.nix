@@ -38,6 +38,9 @@ let
     pkgs.exiftool
     pkgs.doxygen
 
+    # Misc
+    pkgs.asciiquarium
+
     # Libraries
     pkgs.sqlite
 
@@ -73,12 +76,8 @@ let
     pkgs.gopls
     pkgs.goimports-reviser
 
-<<<<<<< Updated upstream
-    pkgs.asciiquarium
-=======
     # Rust
     pkgs.cargo
->>>>>>> Stashed changes
 
     # Javascript
     pkgs.nodejs_22
