@@ -35,6 +35,8 @@ let
     pkgs.bear
     pkgs.cloc
     pkgs.yt-dlp
+    pkgs.exiftool
+    pkgs.doxygen
 
     # Libraries
     pkgs.sqlite
@@ -50,24 +52,33 @@ let
     pkgs.libtool
 
     # C/C++
-    (pkgs.lib.hiPrio pkgs.gcc)
+    (pkgs.lib.hiPrio pkgs.gcc14)
     pkgs.clang
-    pkgs.clang-tools
+    # pkgs.clang-tools
+    pkgs.llvmPackages_19.clang-tools
     pkgs.ccls
 
     # Python
     (pkgs.python3.withPackages(
         ps: with ps; [
             colorama
+	    sphinx-rtd-theme
+	    breathe
         ]))
     pkgs.pipenv
+    pkgs.scons
 
     # Go
     pkgs.go
     pkgs.gopls
     pkgs.goimports-reviser
 
+<<<<<<< Updated upstream
     pkgs.asciiquarium
+=======
+    # Rust
+    pkgs.cargo
+>>>>>>> Stashed changes
 
     # Javascript
     pkgs.nodejs_22

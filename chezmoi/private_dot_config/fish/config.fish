@@ -2,8 +2,9 @@ if not status is-interactive
     return
 end
 
-set --global XDG_CONFIG_HOME $HOME/.config
+set --global --export XDG_CONFIG_HOME $HOME/.config
 set --global --export COLORTERM truecolor
+set --global --export CPM_SOURCE_CACHE $HOME/.cache/CPM
 
 set --global hydro_color_pwd $fish_color_cwd
 set --global hydro_color_duration --dim $fish_color_command
@@ -28,5 +29,16 @@ end
 
 # In the case some executable could not be installed using nix:
 fish_add_path $HOME/.local/share/install/bin
+
+# Cargo
+if test -e "$HOME/.cargo"
+    set --global --export CARGO_HOME $HOME/.cargo
+    fish_add_path $CARGO_HOME/bin
+end
+
+# Go
+if test -e "$HOME/go"
+    fish_add_path $HOME/go/bin
+end
 
 emit config_ready
