@@ -37,9 +37,13 @@ let
     pkgs.yt-dlp
     pkgs.exiftool
     pkgs.doxygen
+    pkgs.joplin
 
     # Misc
     pkgs.asciiquarium
+    pkgs.poppler_utils
+    pkgs.texliveFull
+    pkgs.rubber
 
     # Libraries
     pkgs.sqlite
@@ -57,6 +61,7 @@ let
     # C/C++
     (pkgs.lib.hiPrio pkgs.gcc14)
     pkgs.clang
+    pkgs.libcxx
     # pkgs.clang-tools
     pkgs.llvmPackages_19.clang-tools
     pkgs.ccls
@@ -77,7 +82,7 @@ let
     pkgs.goimports-reviser
 
     # Rust
-    pkgs.cargo
+    pkgs.rustup
 
     # Javascript
     pkgs.nodejs_22
