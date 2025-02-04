@@ -41,4 +41,9 @@ if test -e "$HOME/go"
     fish_add_path $HOME/go/bin
 end
 
+# Doom
+if test -e "$XDG_CONFIG_HOME/emacs/bin/doom"
+    fish_add_path $XDG_CONFIG_HOME/emacs/bin
+end
+
 emit config_ready
