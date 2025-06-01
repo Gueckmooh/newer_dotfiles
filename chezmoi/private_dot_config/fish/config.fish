@@ -46,4 +46,8 @@ if test -e "$XDG_CONFIG_HOME/emacs/bin/doom"
     fish_add_path $XDG_CONFIG_HOME/emacs/bin
 end
 
+if which direnv 2>/dev/null
+    direnv hook fish | source
+end
+
 emit config_ready

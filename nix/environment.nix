@@ -2,7 +2,7 @@ let
   pkgs = (import ./nixpkgs.nix) { config = {}; overlays = []; };
   my-pkgs = (import ./pkgs) { };
 
-  emacs = pkgs.emacs29.override {
+  emacs = pkgs.emacs30.override {
     withNativeCompilation = true;
     withGTK3 = true;
   };
@@ -27,12 +27,13 @@ let
     pkgs.fd
     pkgs.eza
     pkgs.ninja
+    pkgs.conan
 
     # Config
     pkgs.chezmoi
 
     # Utilities
-    pkgs.bear
+    # pkgs.bear
     pkgs.cloc
     pkgs.yt-dlp
     pkgs.exiftool
@@ -59,22 +60,23 @@ let
     pkgs.libtool
 
     # C/C++
-    (pkgs.lib.hiPrio pkgs.gcc14)
-    pkgs.clang
+    # (pkgs.lib.hiPrio pkgs.gcc14)
+    # pkgs.clang
     pkgs.libcxx
     # pkgs.clang-tools
     pkgs.llvmPackages_19.clang-tools
     pkgs.ccls
+    pkgs.openssl
 
-    # Python
-    (pkgs.python3.withPackages(
-        ps: with ps; [
-            colorama
-	    sphinx-rtd-theme
-	    breathe
-        ]))
-    pkgs.pipenv
-    pkgs.scons
+    # # Python
+    # (pkgs.python3.withPackages(
+    #     ps: with ps; [
+    #         colorama
+	#     sphinx-rtd-theme
+	#     breathe
+    #     ]))
+    # pkgs.pipenv
+    # pkgs.scons
 
     # Go
     pkgs.go
