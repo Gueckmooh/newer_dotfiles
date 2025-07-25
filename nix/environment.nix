@@ -64,7 +64,7 @@ let
     # pkgs.clang
     pkgs.libcxx
     # pkgs.clang-tools
-    pkgs.llvmPackages_19.clang-tools
+    # pkgs.llvmPackages_19.clang-tools
     pkgs.ccls
     pkgs.openssl
 
