@@ -50,4 +50,6 @@ if which direnv 2>/dev/null
     direnv hook fish | source
 end
 
+set --global --export PATH "$HOME/.local/bin:$PATH"
+
 emit config_ready
