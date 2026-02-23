@@ -1,9 +1,11 @@
 #!/usr/bin/env fish
 
 set -gx PST /mathworks/UK/devel/pst
+set -gx DOOMDIR ~/.config/mwdoom
 
 fish_add_path $PST/utils/bin
 fish_add_path /mathworks/hub/share/apps/BuildTools/Linux/glibc-2.13/x86_64/perl/perl-5.34.1-mw-002/bin
+fish_add_path -mp /mathworks/hub/share/sbtools/external-apps/llvm/llvm-19.1.4/install/deb12-64/bin/
 
 function __update_sandbox_path --on-variable PWD --on-event config_ready --description "Updates path when in sandbox"
     set -l current_sbroot (command sbroot 2>/dev/null)

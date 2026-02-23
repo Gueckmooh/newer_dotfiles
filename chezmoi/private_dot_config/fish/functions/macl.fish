@@ -13,7 +13,7 @@ function macl
     end
 
     if test (command ps aux | grep "emacs.*$daemonize" | wc -l) -eq 1
-        emacs $daemonize
+        command emacs -init-directory "$XDG_CONFIG_HOME/emacs" -u "" $daemonize
     end
 
     if jobs | grep emacsclient >/dev/null 2>&1
