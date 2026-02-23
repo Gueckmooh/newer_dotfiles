@@ -21,4 +21,4 @@ main() {
     bash "$INSTALL_NIX_ENVIRONMENT_SCRIPT" "$EXTRA_OPTIONS"
 }
 
-main "${@}"
+# main "${@}"

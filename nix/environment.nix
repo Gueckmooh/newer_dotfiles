@@ -55,8 +55,8 @@ let
     # Dev
     # ===
     pkgs.git
-    (pkgs.lib.hiPrio pkgs.cmakeWithGui)
-    pkgs.cmakeCurses
+    # (pkgs.lib.hiPrio pkgs.cmakeWithGui)
+    # pkgs.cmakeCurses
     pkgs.libtool
 
     # C/C++
