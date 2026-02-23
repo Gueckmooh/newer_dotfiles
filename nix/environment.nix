@@ -17,6 +17,7 @@ let
 
     # Editors
     emacs
+    pkgs.eask-cli
     pkgs.neovim
 
     # Terminal quality of life
@@ -28,6 +29,7 @@ let
     pkgs.eza
     pkgs.ninja
     pkgs.conan
+    pkgs.sbcl
 
     # Config
     pkgs.chezmoi
@@ -62,7 +64,7 @@ let
     # C/C++
     # (pkgs.lib.hiPrio pkgs.gcc14)
     # pkgs.clang
-    pkgs.libcxx
+    # pkgs.libcxx
     # pkgs.clang-tools
     # pkgs.llvmPackages_19.clang-tools
     pkgs.ccls

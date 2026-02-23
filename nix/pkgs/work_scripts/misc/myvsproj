@@ -43,6 +43,9 @@ COMPONENTS=(
 
 	polyspace/code_assumptions/model
 	polyspace/code_assumptions/translators
+	polyspace/drs_parser
+
+	shared_cxxfe_ast
 )
 
 for COMP in ${COMPONENTS[@]}; do
@@ -68,5 +71,8 @@ echo "Adding test directory to .projectile file"
 echo "+matlab/test/polyspace/kernel_c_cxx/pql" >>.projectile
 echo "+matlab/test/polyspace/kernel_c_cxx/checkers" >>.projectile
 echo "+matlab/test/polyspace/kernel_c_cxx/userdef_catalogs" >>.projectile
+
+echo "Writing .dir-locals.el file"
+echo "((nil . ((eval . (mw/load-vscode-sandbox-workspace)))))" >> .dir-locals.el
 
 popd
