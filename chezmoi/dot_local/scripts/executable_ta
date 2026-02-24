@@ -1,0 +1,148 @@
+#!/bin/bash
+#
+# Attach or create tmux session
+#
+# # Split Layout
+#
+# @todo documentation
+#
+# ╭──────────────────────────────────────────────────────────╮
+# │                                                          │
+# │                                                          │
+# │                      emacsclient                         │
+# │                                                          │
+# │                                                          │
+# ├──────────────────────────────────────────────────────────┤
+# │ ┌─[0]user@host:my-project                                │
+# │ └─[19:26]---$                                            │
+# │                                                          │
+# │                                                          │
+# │                                                          │
+# ╰──────────────────────────────────────────────────────────╯
+
+usage() {
+    cat <<EOF
+usage: tn [-c directory] [name]
+EOF
+}
+
+not_in_tmux() {
+    [ -z "$TMUX" ]
+}
+
+session_exists() {
+    tmux has-session -t "=$1"
+}
+
+attach_to_session() {
+    local NAME="$1"
+    if not_in_tmux
+    then
+        tmux attach -t "${NAME}"
+    else
+        tmux switch-client -t "${NAME}"
+    fi
+}
+
+
+while getopts ":c:h" opt
+do
+    case "${opt}"
+    in
+        c)
+            DIR="${OPTARG}"
+            ;;
+        h)
+            usage
+            exit 0
+            ;;
+        \?)
+            usage
+            exit 1
+            ;;
+    esac
+done
+shift "$((OPTIND-1))"
+
+if [ ! "$#" -eq 0 ]
+then
+    NAME="$1"
+fi
+
+if [ ! -z "${NAME}" ] && ! session_exists "${NAME}"
+then
+    echo "Session ${NAME} does not exist"
+    exit 1
+fi
+
+if [ ! -z "${NAME}" ]
+then
+    attach_to_session "${NAME}"
+    exit
+fi
+
+declare -A PROJECT_PATHS
+PROJECT_PATHS=()
+if [ ! -z "${DIR}" ]
+then
+    PROJECT_PATHS["$(basename ${DIR})"]="${DIR}"
+fi
+
+get_projects() {
+    local DIR="$1"
+    if [ ! -z "${DIR}" ]
+    then
+        (cd "${DIR}" && ls | sed -e "s/^/$(basename "${DIR}"):/g")
+    fi
+}
+
+get_sessions() {
+    local DIR="$1"
+    local TMUX_SESSIONS="$(tmux ls 2>/dev/null | awk -F: '{print $1'})"
+    local PROJECTS="$(get_projects "${DIR}")"
+    local _PROJECTS="$(echo ${PROJECTS} | tr : _)"
+    for p in ${PROJECTS}
+    do
+        echo "${p}"
+    done
+    for s in ${TMUX_SESSIONS}
+    do
+        if ! echo "${_PROJECTS}" | grep -w -- "${s}" 2>&1 1>/dev/null
+        then
+            echo "${s}"
+        fi
+    done
+}
+
+select_session() {
+    local DIR="$1"
+    TMUX_SESSIONS="$(get_sessions "${DIR}")"
+    if not_in_tmux; then HEIGHT="--height=40%"; fi
+    echo "${TMUX_SESSIONS}" | fzf --reverse ${HEIGHT} --header="Select session/project >"
+}
+
+NAME="$(select_session "${DIR}")"
+
+if echo "${NAME}" | grep ':' 2>&1 1>/dev/null
+then
+    PNAME="$(echo ${NAME} | awk -F: '{print $1}')"
+    DNAME="$(echo ${NAME} | awk -F: '{print $2}')"
+    NAME="$(echo ${NAME} | tr : _)"
+    DIR="${PROJECT_PATHS[${PNAME}]}/${DNAME}"
+fi
+
+echo $DIR
+
+create_session() {
+    # Call tn
+    local DIR="$1"
+    local NAME="$2"
+    tn -c "${DIR}" "${NAME}"
+}
+
+if session_exists "${NAME}"
+then
+    attach_to_session "${NAME}"
+else
+    create_session "${DIR}" "${NAME}"
+fi

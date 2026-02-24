@@ -5,6 +5,7 @@ end
 set --global --export XDG_CONFIG_HOME $HOME/.config
 set --global --export COLORTERM truecolor
 set --global --export CPM_SOURCE_CACHE $HOME/.cache/CPM
+set --global --export VISUAL vim
 
 set --global hydro_color_pwd $fish_color_cwd
 set --global hydro_color_duration --dim $fish_color_command
@@ -13,6 +14,7 @@ set --global hydro_color_git yellow
 set fish_greeting
 
 fish_add_path --prepend --move /usr/local/bin /usr/bin /bin /usr/local/sbin /usr/sbin /sbin
+fish_add_path "$HOME/.local/scripts"
 
 # NIX
 if test -e "$HOME/.nix-profile/etc/profile.d/nix.fish"

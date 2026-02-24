@@ -1,0 +1,21 @@
+#!/bin/bash
+
+TMUX_S=$(tmux display-message -p "#S")
+if test "$TMUX_S" != "0"
+then
+    DAEMONIZE="--daemon=$TMUX_S"
+    SOCKET="--socket=$TMUX_S"
+else
+    DEAMONIZE="--daemon"
+fi
+if [[ $(ps aux | grep "emacs $DAEMONIZE" | wc -l) == 1 ]]
+then
+    emacs -init-directory "$XDG_CONFIG_HOME/emacs" -u "" "$DAEMONIZE"
+fi
+if jobs | grep "emacsclient" >/dev/null 2>&1
+then
+    emacsclient "$SOCKET" -n $*
+    fg '%emacsclient'
+else
+    emacsclient "$SOCKET" -nw $*
+fi
