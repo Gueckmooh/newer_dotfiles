@@ -36,9 +36,8 @@ fish_add_path $HOME/.local/share/install/bin
 fish_add_path $HOME/.local/bin
 
 # Cargo
-if test -e "$HOME/.cargo"
-    set --global --export CARGO_HOME $HOME/.cargo
-    fish_add_path $CARGO_HOME/bin
+if test -e "$HOME/.cargo/env.fish"
+    source "$HOME/.cargo/env.fish"
 end
 
 # Go
