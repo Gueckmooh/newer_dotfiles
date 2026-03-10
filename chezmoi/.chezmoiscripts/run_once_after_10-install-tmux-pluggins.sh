@@ -3,8 +3,6 @@
 
 . "$COMMON_SCRIPT_PATH"
 
-export PATH=$HOME/.nix-profile/bin:$PATH
-
 INSTALL_PLUGGIN_SCRIPT="$XDG_CONFIG_HOME/tmux/plugins/tpm/scripts/install_plugins.sh"
 
 install_tmux_pluggins() {

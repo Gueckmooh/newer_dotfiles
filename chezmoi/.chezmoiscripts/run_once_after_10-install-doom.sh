@@ -3,8 +3,6 @@
 
 . "$COMMON_SCRIPT_PATH"
 
-export PATH=$HOME/.nix-profile/bin:$PATH
-
 DOOM_PATH="$XDG_CONFIG_HOME/emacs/bin/doom"
 
 doom_install() {
