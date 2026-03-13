@@ -14,21 +14,21 @@ function __update_sandbox_path --on-variable PWD --on-event config_ready --descr
         and return
 
         set PATH $BACKUP_PATH
-        set -e sbroot
+        set -e __sbroot
         set -e r
         return
     end
 
-    if set -qg sbroot
+    if set -qg __sbroot
         return
     end
-    set -gx sbroot $current_sbroot
-    set -gx r $sbroot
+    set -gx __sbroot $current_sbroot
+    set -gx r $__sbroot
 
     set -g BACKUP_PATH $PATH
-    set -a PATH $sbroot/matlab/polyspace/bin
-    set -a PATH $sbroot/matlab/test/tools/polyspace/btv
-    set -a PATH $sbroot/matlab/bin/glnxa64
+    set -a PATH $__sbroot/matlab/polyspace/bin
+    set -a PATH $__sbroot/matlab/test/tools/polyspace/btv
+    set -a PATH $__sbroot/matlab/bin/glnxa64
 end
 
 function lk --description "Prints the link to the file so that one can open it in browser"
