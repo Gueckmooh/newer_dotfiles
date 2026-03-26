@@ -11,6 +11,13 @@
     url = "https://github.com/gueckmooh/doom"
     refreshPeriod = "168h"
 
+{{ if .work_profile }}
+[".config/mwdoom"]
+    type = "git-repo"
+    url = "git@insidelabs-git.mathworks.com:polyspace/tools/mwdoom.git"
+    refreshPeriod = "168h"
+{{ end }}
+
 [".config/tmux/plugins/tpm"]
     type = "git-repo"
     url = "https://github.com/tmux-plugins/tpm.git"
