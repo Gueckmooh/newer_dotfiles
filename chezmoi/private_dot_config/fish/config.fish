@@ -41,6 +41,9 @@ if test -e "$HOME/.cargo/env.fish"
 end
 
 # Go
+if test -e "$HOME/.local/go"
+    fish_add_path $HOME/.local/go/bin
+end
 if test -e "$HOME/go"
     fish_add_path $HOME/go/bin
 end
