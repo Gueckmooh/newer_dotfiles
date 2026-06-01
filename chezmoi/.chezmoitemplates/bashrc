@@ -13,7 +13,8 @@ esac
 {{- if .work_profile }}
 {{- if eq .shell "fish" }}
 # Dealing with the unability to run chsh
-if which fish > /dev/null
+FISH="${FISH:-1}"
+if test $FISH -eq 1 && which fish > /dev/null
 then
     exec fish
 fi
