@@ -1,5 +1,6 @@
 # -*- mode: conf-toml; -*-
 
+{{ if .use_emacs }}
 [".config/emacs"]
     type = "git-repo"
     url = "https://github.com/doomemacs/doomemacs.git"
@@ -10,6 +11,7 @@
     type = "git-repo"
     url = "https://github.com/gueckmooh/doom"
     refreshPeriod = "168h"
+{{ end }}
 
 {{ if .work_profile }}
 [".config/mwdoom"]

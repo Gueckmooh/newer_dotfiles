@@ -21,6 +21,11 @@ encryption = "age"
 {{- $possible_shells := list "fish" "bash" }}
 {{- $shell := promptChoice "What shell to use" $possible_shells }}
     shell = {{ $shell | quote }}
+{{- $yes_no := list "yes" "no" }}
+{{- $use_emacs := promptChoice "Use emacs" $yes_no }}
+    use_emacs = {{ eq $use_emacs "yes" }}
+{{- $use_nvim := promptChoice "Use nvim" $yes_no }}
+    use_nvim = {{ eq $use_nvim "yes" }}
 
 [scriptEnv]
     WORKING_TREE = {{ .chezmoi.workingTree | quote }}

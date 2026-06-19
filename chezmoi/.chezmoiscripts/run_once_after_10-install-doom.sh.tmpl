@@ -35,4 +35,6 @@ main() {
     doom_sync
 }
 
+{{ if .use_emacs }}
 main "${@}"
+{{ end }}
