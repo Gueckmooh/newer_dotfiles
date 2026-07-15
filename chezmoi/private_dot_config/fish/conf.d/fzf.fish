@@ -8,3 +8,5 @@ function __ta_projects__
 end
 
 bind \cg '__ta_projects__'
+bind -e -M insert shift-tab
+bind -e shift-tab
