@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 
-if which udb;
+if which udb && false;
 then
     exec udb \
         -iex "dir $(sbroot)/matlab" \
